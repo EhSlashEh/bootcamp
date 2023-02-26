@@ -19,18 +19,31 @@
     <h1 id="title">
         Anthony's second ever Survey Form
     </h1>
+
     <p id="description">
         The first was made on my portfolio for my contact section
     </p>
+
+    <br />
+
     <form id="survey-form">
         <label id="name-label" for="name"> Enter your Name </label>
         <input id="name" type="text" placeholder="name" required />
 
+        <br />
+        <br />
+
         <label id="email-label" for="email"> Enter your Email </label>
         <input id="email" type="email" placeholder="email" required />
 
+        <br />
+        <br />
+
         <label id="number-label" for="number"> Enter your Age </label>
         <input id="number" type="number" placeholder="age" min="16" max="100" />
+
+        <br />
+        <br />
 
         <label id="dropdown-label" for="dropdown"> What is your favourite pet? </label>
         <select id="dropdown" class="form-control" required>
@@ -40,6 +53,9 @@
             <option value="lizard"> Lizard </option>
             <option value="other"> Other </option>
         </select>
+
+        <br />
+        <br />
 
         <label id="radio-label" for="radio"> Do you like dogs? </label>
         <label>
@@ -51,11 +67,39 @@
             No
         </label>
         <label>
-            <input name="like-dog" value="not-sure" type="radio" class="input-radio" checked/>
+            <input name="like-dog" value="not-sure" type="radio" class="input-radio" checked />
             Not Sure
         </label>
 
-    </form>
+        <br />
+        <br />
 
+        <label id="checkbox-label" for="checkbox"> What do you like about pets? </label>
+        <p> Check all that apply </p>
+        <label>
+            <input name="pet-attributes" value="softness" type="checkbox" class="input-checkbox" />
+            Softness
+        </label>
+        <label>
+            <input name="pet-attributes" value="friendship" type="checkbox" class="input-checkbox" />
+            Friendship
+        </label>
+        <label>
+            <input name="pet-attributes" value="company" type="checkbox" class="input-checkbox" />
+            Company
+        </label>
+
+        <br />
+        <br />
+
+        <label> Tell a story about a pet! </label>
+        <br />
+        <textarea id="pet-story" class="input-textarea" name="a-pet-story" placeholder="Tell us about your pet story..."></textarea>
+
+        <br />
+        <br />
+
+        <button type="submit" id="submit" class="submit-button">Submit</button>
+    </form>
 </body>
 </html>
