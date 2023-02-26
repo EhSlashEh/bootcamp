@@ -1,0 +1,15 @@
+#navbar {
+    position: fixed;
+    font-size:3em;
+}
+
+#main-doc {
+    margin-left: 400px;
+}
+
+@media (max-width: 600px) {
+    #main-doc {
+        margin-left: 0;
+        padding-top: 500px;
+    }
+}
