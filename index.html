@@ -23,8 +23,38 @@
         The first was made on my portfolio for my contact section
     </p>
     <form id="survey-form">
+        <label id="name-label" for="name"> Enter your Name </label>
         <input id="name" type="text" placeholder="name" required />
+
+        <label id="email-label" for="email"> Enter your Email </label>
         <input id="email" type="email" placeholder="email" required />
+
+        <label id="number-label" for="number"> Enter your Age </label>
+        <input id="number" type="number" placeholder="age" min="16" max="100" />
+
+        <label id="dropdown-label" for="dropdown"> What is your favourite pet? </label>
+        <select id="dropdown" class="form-control" required>
+            <option value="cat"> Cat </option>
+            <option value="dog"> Dog </option>
+            <option value="fish"> Fish </option>
+            <option value="lizard"> Lizard </option>
+            <option value="other"> Other </option>
+        </select>
+
+        <label id="radio-label" for="radio"> Do you like dogs? </label>
+        <label>
+            <input name="like-dog" value="yes" type="radio" class="input-radio" />
+            Yes
+        </label>
+        <label>
+            <input name="like-dog" value="no" type="radio" class="input-radio" />
+            No
+        </label>
+        <label>
+            <input name="like-dog" value="not-sure" type="radio" class="input-radio" checked/>
+            Not Sure
+        </label>
+
     </form>
 
 </body>
