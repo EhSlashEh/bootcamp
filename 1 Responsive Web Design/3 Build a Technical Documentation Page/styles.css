@@ -1,15 +1,39 @@
-#navbar {
-    position: fixed;
-    font-size:3em;
+* {
 }
 
-#main-doc {
-    margin-left: 400px;
+body {
+    margin-bottom: 1000px;
 }
 
-@media (max-width: 600px) {
+#navbar header{
+    font-size: 2em;
+}
+
+#navbar ul {
+    font-size: 1.4em;
+}
+
+#main-doc header{
+    font-size: 1.5em;
+}
+
+code {
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+@media (min-width: 600px) {
     #main-doc {
-        margin-left: 0;
-        padding-top: 500px;
+        margin-left: 280px;
+    }
+
+    #navbar {
+        position: fixed;
     }
 }
