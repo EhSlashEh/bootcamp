@@ -1,0 +1,36 @@
+* {
+}
+
+body {
+    margin-bottom: 1000px;
+}
+
+header {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+}
+
+header img {
+    height: 50px;
+    border: 1px solid black;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+}
+
+li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+#video {
+    margin-top: 200px;
+}
+
+
+@media (min-width: 600px) {
+
+}
