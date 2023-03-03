@@ -17,7 +17,6 @@ body {
 
 #quote-box {
     background-color: chartreuse;
-    height: 300px;
     width: 500px;
     display: flex;
     flex-direction: column;
@@ -31,7 +30,7 @@ body {
 }
 
 #quote-box #author {
-    padding: 0px;
+    padding: 8px;
 }
 
 #clickable {
