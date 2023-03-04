@@ -1,37 +1,43 @@
-function convertToRoman(num) {
-  console.log("Number given: " + num);
+function telephoneCheck(str) {
+  // Check if valid way to enter number
+  // First standardized number by replacing all numbers with 0
+  var check = str.replace(/\d/g, 0);
+  if (check == "000-000-0000" ||
+      check == "(000)000-0000" ||
+      check == "(000) 000-0000" ||
+      check == "000 000 0000" ||
+      check == "0000000000" ||
+      check == "0 000 000 0000" ||
+      check == "0 000-000-0000" ||
+      check == "0 (000) 000-0000" ||
+      check == "0(000)000-0000"
+      ) {}
+  else {
+    return false;
+  }
+  
+  // Remove characters that are not numbers
+  str = str.replace(/\D/g, "");
 
-  let romanResult = "";
+  // If it has 10 numbers, it's good
+  if (str.length == 10) {
+    return true;
+  }
 
-  /* Set up dictionary of Roman numbers  */
-  const romanNumeral = {
-    M: 1000,
-    CM: 900,
-    D: 500,
-    CD: 400,
-    C: 100,
-    XC: 90,
-    L: 50,
-    XL: 40,
-    X: 10,
-    IX: 9,
-    V: 5,
-    IV: 4,
-    I: 1
-  };
-
-  /* Check each usable numeral  */
-  for (let romanKey in romanNumeral) {
-
-    /* While there is still value to add, use the biggest roman numeral  */
-    while (num >= romanNumeral[romanKey]) {
-      romanResult += romanKey;
-      num -= romanNumeral[romanKey];
-      console.log("Running result: " + romanResult);
-      console.log("Value left: " + num);
+  // If it has 11 numbers, make sure first number is 1 (one)
+  else if (str.length == 11) {
+    if (str[0] == 1){
+      return true;
+    }
+    if (str[0] != 1) {
+      return false;
     }
   }
 
-  console.log("String giving: " + romanResult);
-  return romanResult;
+  // It's bad otherwise
+  else {
+    return false;
+  }
 }
+
+telephoneCheck("1(555)555-5555");

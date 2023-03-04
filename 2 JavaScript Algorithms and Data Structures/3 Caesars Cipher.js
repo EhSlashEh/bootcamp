@@ -1,37 +1,31 @@
-function convertToRoman(num) {
-  console.log("Number given: " + num);
+function rot13(str) {
+  console.log("Given string: " + str)
+  // Convert the string to an array
+  let myArray = str.split("");
+  
+  // Convert array of strings into array of numbers
+  myArray = myArray.map(function(char) {return char.charCodeAt(0) -65;});
 
-  let romanResult = "";
-
-  /* Set up dictionary of Roman numbers  */
-  const romanNumeral = {
-    M: 1000,
-    CM: 900,
-    D: 500,
-    CD: 400,
-    C: 100,
-    XC: 90,
-    L: 50,
-    XL: 40,
-    X: 10,
-    IX: 9,
-    V: 5,
-    IV: 4,
-    I: 1
-  };
-
-  /* Check each usable numeral  */
-  for (let romanKey in romanNumeral) {
-
-    /* While there is still value to add, use the biggest roman numeral  */
-    while (num >= romanNumeral[romanKey]) {
-      romanResult += romanKey;
-      num -= romanNumeral[romanKey];
-      console.log("Running result: " + romanResult);
-      console.log("Value left: " + num);
+  // Add 13 to each number, but only if it is A-Z
+  for (let i = 0; i < myArray.length; i++) {
+    if (myArray[i] >= 0 & myArray[i] <= 65) {
+    myArray[i] += 13;
     }
-  }
+    // If past Z, subtract 26
+    if (myArray[i] >= 26) {
+      myArray[i] -= 26;
+    }
+  } 
+  
+  // Convert array of numbers into array of strings
+  myArray = myArray.map(function(num) {return String.fromCharCode(num + 65);});
 
-  console.log("String giving: " + romanResult);
-  return romanResult;
+  // Convert the array back to a string
+  str = myArray.join("");         
+  
+  // Return it
+  console.log("Returned string: " + str);
+  return str;
 }
+
+rot13("SERR PBQR PNZC");
