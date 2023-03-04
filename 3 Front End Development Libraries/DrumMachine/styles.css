@@ -1,3 +1,7 @@
+* {
+    font-family: Arial;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -8,6 +12,78 @@ body {
     background-color: aquamarine;
 }
 
-#center-container {
+#drum-machine {
+    border: 6px solid black;
+    border-radius: 40px;
+    background-color: rgba(200,200,200,1);
+    padding: 8px 24px;
+    width: 650px;
+}
+
+#title, #by-me {
     text-align: center;
+    padding: 12px;
+}
+
+#title {
+    font-size: 2em;
+}
+
+#display {
+    border: 6px groove blue;
+    border-radius: 18px;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#drum-pad-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+}
+
+.drum-pad {
+    border: 1px solid purple;
+    border-radius: 4px;
+    background-color: coral;
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
+}
+
+    .drum-pad:hover {
+        background-color: chocolate;
+        box-shadow: 0 0 4px rgba(0,0,0,0.4);
+    }
+
+#options-container {
+    border: 0px dashed purple;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 500px;
+    margin-right: 28px;
+}
+
+#key-display {
+    border: 1px solid purple;
+    border-radius: 4px;
+    background-color: coral;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+}
+
+#volume-slider {
+    display: flex;
+    align-items: center;
 }
