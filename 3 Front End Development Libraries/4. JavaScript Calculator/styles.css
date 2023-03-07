@@ -1,5 +1,5 @@
 :root {
-    --button-size: 100px;
+    --button-size: 80px;
 }
 
 * {
@@ -8,28 +8,40 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    min-height: 600px;
+    min-width: 400px;
     background-color: thistle;
 }
 
+@media (min-width: 610px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+@media (min-height: 700px) {
+    body {
+        overflow-y: hidden;
+    }
+}
+
 #center-container {
+    display: flex;
+    flex-direction: row;
     text-align: center;
     border: 4px solid black;
     background-color: lightslategrey;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     padding: 20px;
 }
 
 #calculator {
-    height: 80%;
     width: calc(var(--button-size) * 4);
     border: 3px solid black;
     background-color: aliceblue;
@@ -39,18 +51,31 @@ body {
     align-items: center;
 }
 
-#display {
+#display-container {
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: center;
     background-color: black;
-    color: greenyellow;
     height: var(--button-size);
     width: calc(var(--button-size) * 4);
     font-size: calc(var(--button-size) * 0.3);
     box-sizing: border-box;
     padding: 8px;
+}
+
+#display-input {
+    padding: 0 1px 1px 0;
+    color: darkgoldenrod;
+    font-size: calc(var(--button-size) * 0.25);
+    letter-spacing: -1.5px;
+    height: calc(var(--button-size) * 0.2);
+}
+
+#display {
+    padding: 1px 1px 0 0;
+    color: greenyellow;
+    font-size: calc(var(--button-size) * 0.3);
 }
 
 #buttons {
@@ -105,5 +130,5 @@ body {
 
 #by-me {
     margin-top: 14px;
-    color: white;
+    color: black;
 }
