@@ -1,3 +1,6 @@
-﻿function MyClickEvent(button) {
-    console.log(button);
+﻿function MyClickEvent(elem) {
+    console.log(`Clicked: ${button}`);
+    if (button == '') {
+
+    }
 }

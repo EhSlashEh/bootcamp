@@ -96,3 +96,9 @@ body {
     font-size: 1.2em;
     cursor: pointer;
 }
+
+i:hover {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+    transition-duration: 0.12s;
+}

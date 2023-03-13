@@ -32,13 +32,13 @@
                         Break Length
                     </div>
                     <div class="option-change">
-                        <a id="break-decrement" onclick="MyClickEvent('BreakDecrement')">
+                        <a id="break-decrement" onclick="MyClickEvent()">
                             <i class="fa-solid fa-arrow-down"></i>
                         </a>
                         <div id="break-length">
                             5
                         </div>
-                        <a id="break-increment" onclick="MyClickEvent('BreakIncrement')">
+                        <a id="break-increment" onclick="MyClickEvent()">
                             <i class="fa-solid fa-arrow-up"></i>
                         </a>
                     </div>
@@ -48,13 +48,13 @@
                         Session Length
                     </div>
                     <div class="option-change">
-                        <a id="session-decrement" onclick="MyClickEvent('SessionDecrement')">
+                        <a id="session-decrement" onclick="MyClickEvent()">
                             <i class="fa-solid fa-arrow-down"></i>
                         </a>
                         <div id="session-length">
                             25
                         </div>
-                        <a id="session-increment" onclick="MyClickEvent('SessionIncrement')">
+                        <a id="session-increment" onclick="MyClickEvent()">
                             <i class="fa-solid fa-arrow-up"></i>
                         </a>
                     </div>
@@ -71,12 +71,12 @@
             </div>
 
             <div id="play-buttons">
-                <a id="start-stop">
-                    <i class="fa-solid fa-play" onclick="MyClickEvent('Start')"></i> | 
-                    <i class="fa-solid fa-pause" onclick="MyClickEvent('Stop')"></i>
-                </a>
+                <div id="start-stop">
+                    <i id="start" class="fa-solid fa-play" onclick="MyClickEvent()"></i> | 
+                    <i id="stop" class="fa-solid fa-pause" onclick="MyClickEvent()"></i>
+                </div>
                 <a id="reset">
-                    | <i class="fa-solid fa-arrows-rotate" onclick="MyClickEvent('Reset')"></i>
+                    | <i class="fa-solid fa-arrows-rotate" onclick="MyClickEvent()"></i>
                 </a>
             </div>
 
