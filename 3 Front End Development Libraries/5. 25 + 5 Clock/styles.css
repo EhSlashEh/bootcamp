@@ -102,3 +102,8 @@ i:hover {
     transform: scale(1.1);
     transition-duration: 0.12s;
 }
+
+i:active {
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    transform: scale(0.8);
+}
