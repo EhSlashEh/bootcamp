@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Reset");
 
             // Stop the timer if one
-            clearInterval(timerInterval);
+            if (typeof timerInterval === 'number') {
+                clearInterval(timerInterval);
+            }
 
             // Replace current div with starting div
             var currentDiv = document.getElementById('center-container');
@@ -67,6 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 clearInterval(timerInterval);
             }
         }
+        // Clicksound
+        function ClickSound(temp) {
+            if (temp == 1) {
+                var audio = new Audio('https://cdn.pixabay.com/audio/2022/10/30/audio_f5dbe8213e.mp3');
+                audio.volume = 0.2;
+                audio.play();
+            }
+            if (temp == 2) {
+                var cantAudio = new Audio('https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1a/Ui_magic_immune.mp3/revision/latest?cb=20190923095351.mp3');
+                cantAudio.play();
+            }
+        }
 
         // Loop through all icons and attach a click event listener to each one
         for (var i = 0; i < icons.length; i++) {
@@ -79,24 +93,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Time Settings
                 if (parentID == 'break-decrement') {
-                    breakLength.textContent = parseInt(breakLength.textContent) - 1;
+                    if (parseInt(breakLength.textContent) > 1) {
+                        breakLength.textContent = parseInt(breakLength.textContent) - 1;
+                        ClickSound(1);
+                    }
+                    else {
+                        ClickSound(2);
+                    }
                 }
                 if (parentID == 'break-increment') {
-                    breakLength.textContent = parseInt(breakLength.textContent) + 1;
-                }
-                if (parentID == 'session-decrement') {
-                    sessionLength.textContent = parseInt(sessionLength.textContent) - 1;
-                    if (!playing) {
-                        clockTime = parseInt(sessionLength.textContent) * 60;
-                        UpdateTimer()
+                    if (parseInt(breakLength.textContent) < 60) {
+                        breakLength.textContent = parseInt(breakLength.textContent) + 1;
+                        ClickSound(1);
                     }
+                    else {
+                        ClickSound(2);
+                    }                }
+                if (parentID == 'session-decrement') {
+                    if (parseInt(sessionLength.textContent) > 1) {
+                        sessionLength.textContent = parseInt(sessionLength.textContent) - 1;
+                        if (!playing) {
+                            clockTime = parseInt(sessionLength.textContent) * 60;
+                            UpdateTimer()
+                            ClickSound(1);
+                        }
+                        else {
+                            ClickSound(2);
+                        }                    }
                 }
                 if (parentID == 'session-increment') {
-                    sessionLength.textContent = parseInt(sessionLength.textContent) + 1;
-                    if (!playing) {
-                        clockTime = parseInt(sessionLength.textContent) * 60;
-                        UpdateTimer()
+                    if (parseInt(sessionLength.textContent) < 60) {
+                        sessionLength.textContent = parseInt(sessionLength.textContent) + 1;
+                        if (!playing) {
+                            clockTime = parseInt(sessionLength.textContent) * 60;
+                            UpdateTimer()
+                            ClickSound(1);
+                        }
+                        else {
+                            ClickSound(2);
+                        }
                     }
+                    else {
+                        ClickSound(2);
+                    }
+
                 }                
 
                 // Function Buttons
@@ -106,11 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (parentID == 'reset') {
                     resetTimer();
                 }
-
-                // Click sound
-                var audio = new Audio('https://cdn.pixabay.com/audio/2022/10/30/audio_f5dbe8213e.mp3');
-                audio.volume = 0.2;
-                audio.play();
 
             });
         }
