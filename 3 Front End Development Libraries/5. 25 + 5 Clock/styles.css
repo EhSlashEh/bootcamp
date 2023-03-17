@@ -92,9 +92,31 @@ body {
     font-size: 2.5em;
 }
 
+#play-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#play-buttons input[type="checkbox"] {
+    display: none;
+}
+
+    #play-buttons label i:last-child {
+        display: none;
+    }
+
+    #play-buttons input:checked + label #pause-icon {
+        display: block;
+    }
+
+    #play-buttons input:checked + label #play-icon {
+        display: none;
+    }
+
 #play-buttons i {
     font-size: 1.2em;
     cursor: pointer;
+    margin: 0 10px;
 }
 
 i:hover {

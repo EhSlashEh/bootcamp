@@ -2,34 +2,80 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // Starting value
-    const breakLength = document.getElementById("break-label");
-    const sessionLength = document.getElementById("session-label");
+    const breakLength = document.getElementById("break-length");
+    const sessionLength = document.getElementById("session-length");
     const clockLabel = document.getElementById("timer-label");
-    const clockTime = document.getElementById("time-left");
+    const clockTimeDisplay = document.getElementById("time-left");
+    let playing = false;
+
+    let clockTime = parseInt(sessionLength.textContent) * 60;
+    let minutes;
+    let seconds;
+    let formattedTime;
 
     // Get all icons on the page
-
     let icons = document.getElementsByTagName("i");
+
+    // Function for starting and stopping the timer
+    function startStopTimer() {
+        playing = !playing;
+
+        if (playing) {
+            console.log("Started");
+            timerInterval = setInterval(CountDown, 1000);
+        }
+        else {
+            console.log("Paused");
+            clearInterval(timerInterval);
+        }
+    }
+
+    // Function for reseting the timer
+    function resetTimer() {
+        console.log("Reset");
+    }
+
+    // Countdown function
+    function CountDown() {
+        clockTime -= 1;
+        minutes = Math.floor(clockTime / 60);
+        seconds = clockTime % 60;
+        formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        clockTimeDisplay.textContent = formattedTime;
+    }
 
     // Loop through all icons and attach a click event listener to each one
     for (var i = 0; i < icons.length; i++) {
         icons[i].addEventListener("click", function () {
+
             // Do something when an icon is clicked
-            console.log("Icon clicked!");
+
+            // Get the parent element's id
+            let parentID = this.parentElement.id;
+
+            // Time Settings
+            if (parentID == 'break-decrement') {
+                breakLength.textContent = parseInt(breakLength.textContent) - 1;
+            }
+            if (parentID == 'break-increment') {
+                breakLength.textContent = parseInt(breakLength.textContent) + 1;
+            }
+            if (parentID == 'session-decrement') {
+                sessionLength.textContent = parseInt(sessionLength.textContent) - 1;
+            }
+            if (parentID == 'session-increment') {
+                sessionLength.textContent = parseInt(sessionLength.textContent) + 1;
+            }
+            clockTime = parseInt(sessionLength.textContent) * 60;
+
+            // Function Buttons
+            if (parentID == 'playButton') {
+                startStopTimer();
+            }
+            if (parentID == 'reset') {
+                resetTimer();
+            }
+
         });
     }
-
-    /*
-    buttons.addEventListener("click",
-        function (event) {
-            const button = event.target;
-            const buttonId = button.id;
-
-            if (button.id == "break-decrement") {
-                console.log("nice");
-            }
-        }
-    );
-    */
-
 });
