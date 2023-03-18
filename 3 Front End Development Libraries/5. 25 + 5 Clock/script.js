@@ -47,13 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
         function CountDownTime() {
             clockTime -= 1;
             UpdateTime();
+
             if (clockTime === 0) {
                 clearInterval(timerInterval);
-                ClickSound(3);
-                if (clockLabel.textContent === "Session") {
+                if (clockLabel.textContent.trim() == "Session") {
+                    ClickSound(3);
                     clockLabel.textContent = "Break";
                     clockTime = parseInt(breakLength.textContent) * 60;
-                } else {
+                } else if (clockLabel.textContent.trim() == "Break") {
+                    ClickSound(4);
                     clockLabel.textContent = "Session";
                     clockTime = parseInt(sessionLength.textContent) * 60;
                 }
@@ -61,24 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 playing = true;
                 startStopTimer();
             }
-        }
-
-        // start Session
-        function startSessionTime() {
-            clockLabel.textContent = "Session";
-            clockTime = parseInt(sessionLength.textContent) * 60;
-            UpdateTime();
-            playing = true;
-            startStopTimer();
-        }
-
-        // Break timer
-        function startBreakTime() {
-            clockLabel.textContent = "Break";
-            clockTime = parseInt(breakLength.textContent) * 60;
-            UpdateTime();
-            playing = true;
-            startStopTimer();
         }
 
         // Function for starting and stopping the timer
@@ -105,15 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 audio.play();
             }
             if (temp == 2) {
-                var cantAudio = new Audio('https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1a/Ui_magic_immune.mp3/revision/latest?cb=20190923095351.mp3');
+                var cantAudio = new Audio('https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1a/Ui_magic_immune.mp3');
                 cantAudio.play();
             }
             if (temp == 3) {
-                var alarmAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/9/92/Mordekaiser_DarkStar_R_Hit_SFX.ogg/revision/latest?cb=20221120144840');
+                var alarmAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/9/92/Mordekaiser_DarkStar_R_Hit_SFX.ogg');
                 alarmAudio.play();
             }
             if (temp == 4) {
-                var breakEndAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/d/d0/Mordekaiser_Original_Kill_0.ogg/revision/latest?cb=20200501192707');
+                var breakEndAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/d/d0/Mordekaiser_Original_Kill_0.ogg');
                 breakEndAudio.play();
             }
             
@@ -168,9 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             UpdateTime()
                             ClickSound(1);
                         }
-                        else {
-                            ClickSound(2);
-                        }
+
                     }
                     else {
                         ClickSound(2);
