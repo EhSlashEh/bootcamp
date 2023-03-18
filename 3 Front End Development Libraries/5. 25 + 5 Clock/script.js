@@ -1,4 +1,6 @@
-﻿// Wait for page to load
+﻿"use strict";
+
+// Wait for page to load
 document.addEventListener("DOMContentLoaded", function () {
 
     function SetUpPage() {
@@ -8,67 +10,93 @@ document.addEventListener("DOMContentLoaded", function () {
         const sessionLength = document.getElementById("session-length");
         const clockLabel = document.getElementById("timer-label");
         const clockTimeDisplay = document.getElementById("time-left");
-        let playing = false;
+        const playIcon = document.getElementById("play-icon");
+        const pauseIcon = document.getElementById("pause-icon");
+        const icons = document.querySelectorAll("i");
+        const originalDiv = document.querySelector("#center-container").cloneNode(true);
+
         // Time
         let clockTime = parseInt(sessionLength.textContent) * 60;
-        let minutes;
-        let seconds;
-        let formattedTime;
-        // Play icons
-        let playIcon = document.getElementById("play-icon");
-        let pauseIcon = document.getElementById("pause-icon");
-        // Remember initial load state
-        var originalDiv = document.getElementById('center-container').cloneNode(true);
-        // Get all icons on the page
-        let icons = document.getElementsByTagName("i");
+        let playing = false;
+        let timerInterval;
 
         // Functions
-        // Function for reseting the timer
         function resetTimer() {
-            console.log("Reset");
-
             // Stop the timer if one
             if (typeof timerInterval === 'number') {
                 clearInterval(timerInterval);
             }
 
             // Replace current div with starting div
-            var currentDiv = document.getElementById('center-container');
+            const currentDiv = document.querySelector("#center-container");
             currentDiv.parentNode.replaceChild(originalDiv, currentDiv);
 
             // Reassign all buttons
             SetUpPage();
         }
+
         // Update session time
-        function UpdateTimer() {
-            minutes = Math.floor(clockTime / 60);
-            seconds = clockTime % 60;
-            formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        function UpdateTime() {
+            const minutes = Math.floor(clockTime / 60);
+            const seconds = clockTime % 60;
+            const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
             clockTimeDisplay.textContent = formattedTime;
         }
+
         // Countdown function
-        function CountDown() {
+        function CountDownTime() {
             clockTime -= 1;
-            console.log(clockTimeDisplay.textContent);
-            UpdateTimer();
+            UpdateTime();
+            if (clockTime === 0) {
+                clearInterval(timerInterval);
+                ClickSound(3);
+                if (clockLabel.textContent === "Session") {
+                    clockLabel.textContent = "Break";
+                    clockTime = parseInt(breakLength.textContent) * 60;
+                } else {
+                    clockLabel.textContent = "Session";
+                    clockTime = parseInt(sessionLength.textContent) * 60;
+                }
+                UpdateTime();
+                playing = true;
+                startStopTimer();
+            }
         }
+
+        // start Session
+        function startSessionTime() {
+            clockLabel.textContent = "Session";
+            clockTime = parseInt(sessionLength.textContent) * 60;
+            UpdateTime();
+            playing = true;
+            startStopTimer();
+        }
+
+        // Break timer
+        function startBreakTime() {
+            clockLabel.textContent = "Break";
+            clockTime = parseInt(breakLength.textContent) * 60;
+            UpdateTime();
+            playing = true;
+            startStopTimer();
+        }
+
         // Function for starting and stopping the timer
         function startStopTimer() {
-            playing = !playing;
+            if (!timerInterval) {
+                timerInterval = setInterval(CountDownTime, 1000);
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
 
-            if (playing) {
-                console.log("Started");
-                playIcon.style.display = "none";
-                pauseIcon.style.display = "block";
-                timerInterval = setInterval(CountDown, 1000);
-            }
-            else {
-                console.log("Paused");
-                playIcon.style.display = "block";
-                pauseIcon.style.display = "none";
+            } else {
                 clearInterval(timerInterval);
+                timerInterval = null;
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+
             }
         }
+
         // Clicksound
         function ClickSound(temp) {
             if (temp == 1) {
@@ -80,6 +108,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 var cantAudio = new Audio('https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1a/Ui_magic_immune.mp3/revision/latest?cb=20190923095351.mp3');
                 cantAudio.play();
             }
+            if (temp == 3) {
+                var alarmAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/9/92/Mordekaiser_DarkStar_R_Hit_SFX.ogg/revision/latest?cb=20221120144840');
+                alarmAudio.play();
+            }
+            if (temp == 4) {
+                var breakEndAudio = new Audio('https://static.wikia.nocookie.net/leagueoflegends/images/d/d0/Mordekaiser_Original_Kill_0.ogg/revision/latest?cb=20200501192707');
+                breakEndAudio.play();
+            }
+            
         }
 
         // Loop through all icons and attach a click event listener to each one
@@ -114,19 +151,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         sessionLength.textContent = parseInt(sessionLength.textContent) - 1;
                         if (!playing) {
                             clockTime = parseInt(sessionLength.textContent) * 60;
-                            UpdateTimer()
+                            UpdateTime()
                             ClickSound(1);
                         }
-                        else {
-                            ClickSound(2);
-                        }                    }
+                    }
+                    else {
+                        ClickSound(2);
+                    }
+
                 }
                 if (parentID == 'session-increment') {
                     if (parseInt(sessionLength.textContent) < 60) {
                         sessionLength.textContent = parseInt(sessionLength.textContent) + 1;
                         if (!playing) {
                             clockTime = parseInt(sessionLength.textContent) * 60;
-                            UpdateTimer()
+                            UpdateTime()
                             ClickSound(1);
                         }
                         else {
@@ -136,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     else {
                         ClickSound(2);
                     }
-
                 }                
 
                 // Play, stop, and reset Buttons
@@ -146,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (parentID == 'reset') {
                     resetTimer();
                 }
-
             });
         }
     }
