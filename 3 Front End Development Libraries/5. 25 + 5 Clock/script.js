@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function SetUpPage() {
 
-        // Starting value
+        // Starting values
         const breakLength = document.getElementById("break-length");
         const sessionLength = document.getElementById("session-length");
         const clockLabel = document.getElementById("timer-label");
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }                
 
-                // Function Buttons
+                // Play, stop, and reset Buttons
                 if (parentID == 'start-stop') {
                     startStopTimer();
                 }
