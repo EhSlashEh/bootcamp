@@ -1,8 +1,11 @@
 * {
+    font-family: Arial;
+    cursor: crosshair;
 }
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: tomato;
@@ -31,8 +34,15 @@ body {
 
 #my-name {
     margin: 6px;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 20px;
 }
 
 rect:hover {
     fill: orange;
+}
+
+.tooltip {
+    border: 2px solid black;
 }
