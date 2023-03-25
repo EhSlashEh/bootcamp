@@ -1,114 +1,92 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Get the cyclist data
-    fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json')
+    // Get the temp data
+    fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json')
         .then(response => response.json())
         .then(data => {
+            // set consts
+            const dataset = data.monthlyVariance;
+            const years = dataset.map(d => d.year);
+            const months = dataset.map(d => d.month - 1); // Subtract 1 to convert to 0-indexed
+            const temperatures = dataset.map(d => d.variance);
+
+            // calc max and min temps
+            const minTemp = Math.min(...temperatures);
+            const maxTemp = Math.max(...temperatures);
 
             // use the SVG element
-            const svg = d3.select('#content');
-            svg.attr('width', 800)
-                .attr('height', 600);
+            const width = 1200;
+            const height = 500;
+            const padding = 60;
+            const svg = d3.select('#content')
+                .attr('width', width)
+                .attr('height', height);
 
-            // Define dimensions and margins
-            const margin = { top: 20, right: 20, bottom: 50, left: 50 };
-            const width = svg.attr('width') - margin.left - margin.right;
-            const height = svg.attr('height') - margin.top - margin.bottom;
+            // color scale
+            const colorScale = d3.scaleSequential()
+                .interpolator(d3.interpolateRdYlBu)
+                .domain([maxTemp, minTemp]);
 
-            // Define scales for x and y-axes
-            const xScale = d3.scaleLinear()
-                .domain([d3.min(data, dataPoint => dataPoint.Year) - 1, d3.max(data, dataPoint => dataPoint.Year) + 1])
-                .range([0, width]);
+            // Draw heatmap
+            const parseTime = d3.timeParse('%m');
 
-            const yMin = d3.min(data, dataPoint => dataPoint.Seconds);
-            const yMax = d3.max(data, dataPoint => dataPoint.Seconds);
-            const yPadding = (yMax - yMin) * 0.05; // 5% padding on both top and bottom
-            const yScale = d3.scaleLinear()
-                .domain([yMin - yPadding, yMax + yPadding])
-                .range([0, height]);
+            const rectWidth = Math.ceil((width - padding * 2) / (years.length / 12));
+            const rectHeight = Math.ceil((height - padding * 2) / 12);
 
-            // Create a tooltip element for dots
-            const tooltip = d3.select('body')
-                .append('div')
-                .attr('id', 'tooltip')
-                .style('opacity', 0);
-
-            // Create circles for each data point
-            const circles = svg.selectAll('circle')
-                .data(data)
+            svg.selectAll('rect')
+                .data(dataset)
                 .enter()
-                .append('circle')
-                .attr('cx', d => xScale(d.Year) + margin.left)
-                .attr('cy', d => yScale(d.Seconds) + margin.top)
-                .attr('r', 6)
-                .attr("class", "dot")
-                .attr("data-xvalue", d => d.Year)
-                .attr("data-yvalue", d => new Date(1970, 0, 1, 0, Math.floor(d.Seconds / 60), d.Seconds % 60))
-                .attr('fill', d => d.Doping ? 'red' : 'green')
-
-                .on("mouseover", function (event, d) {
-                    // Show tooltip
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    // Update tooltip content
-                    tooltip.html(`${d.Name}<br/>${d.Nationality}<br/>Year: ${d.Year}, Time: ${d.Time}<br/>${d.Doping}`)
-                        .attr("data-year", d.Year); // Add data-year attribute
-
+                .append('rect')
+                .attr('x', (d, i) => padding + Math.floor(i / 12) * rectWidth)
+                .attr('y', (d, i) => padding + (i % 12) * rectHeight)
+                .attr('width', rectWidth)
+                .attr('height', rectHeight)
+                .attr('fill', d => colorScale(d.variance))
+                .on('mouseover', (event, d) => {
+                    // Show tooltip on mouseover
                 })
-                .on("mousemove", function (event, d) {
-                    // Update tooltip position
-                    tooltip.style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 70) + "px")
-                        .style("position", "absolute");
-                })
-                .on("mouseout", function (d) {
-                    // Hide tooltip
-                    tooltip.transition()
-                        .duration(500)
-                        .style("opacity", 0);
+                .on('mouseout', () => {
+                    // Hide tooltip on mouseout
                 });
 
-            // Define x and y-axes
-            const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
-            const yAxis = d3.axisLeft(yScale).tickFormat(d => {
-                const date = new Date(1970, 0, 1, 0, 0, d);
-                return d3.timeFormat('%M:%S')(date);
-            });
-            // Add the x and y-axes to the scatterplot
-            svg.append("g")
-                .attr("transform", `translate(${margin.left}, ${height + margin.top})`)
-                .attr("id", "x-axis")
+            // Add x-axis and label
+            const xScale = d3.scaleTime()
+                .domain([new Date(d3.min(years), 0), new Date(d3.max(years), 0)])
+                .range([padding, width - padding]);
+
+            const xAxis = d3.axisBottom(xScale)
+                .tickFormat(d3.timeFormat('%Y'));
+
+            svg.append('g')
+                .attr('transform', `translate(0, ${height - padding})`)
                 .call(xAxis);
 
-            svg.append("g")
-                .attr("transform", `translate(${margin.left}, ${margin.top})`)
-                .attr("id", "y-axis")
+            svg.append('text')
+                .attr('x', width / 2)
+                .attr('y', height - 10)
+                .attr('text-anchor', 'middle')
+                .text('Year');
+
+            // Add y-axis and label
+            const yScale = d3.scaleBand()
+                .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
+                .range([padding, height - padding]);
+
+            const yAxis = d3.axisLeft(yScale)
+                .tickSize(0)
+                .tickPadding(10);
+
+            svg.append('g')
+                .attr('id', 'y-axis')
+                .attr('transform', `translate(${padding}, 0)`)
                 .call(yAxis);
 
-            // a legend
-            const legend = svg.append('g')
-                .attr('id', 'legend')
-                .attr('transform', `translate(${width - 130}, ${height - 300})`);
-
-            legend.append('rect')
-                .attr('x', 0)
-                .attr('y', 0)
-                .attr('fill', 'red');
-
-            legend.append('text')
-                .attr('x', 25)
-                .attr('y', 15)
-                .text('Doping Allegations');
-
-            legend.append('rect')
-                .attr('x', 0)
-                .attr('y', 30)
-                .attr('fill', 'green');
-
-            legend.append('text')
-                .attr('x', 25)
-                .attr('y', 45)
-                .text('No Doping Allegations');
+            svg.append('text')
+                .attr('x', -height / 2)
+                .attr('y', 10)
+                .attr('transform', 'rotate(-90)')
+                .attr('text-anchor', 'middle')
+                .text('Months');
         });
+
 });
