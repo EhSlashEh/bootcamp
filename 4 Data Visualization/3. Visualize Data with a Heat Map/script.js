@@ -27,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 .interpolator(d3.interpolateRdYlBu)
                 .domain([maxTemp, minTemp]);
 
+            // Axis Scale
+            const xScale = d3.scaleTime()
+                .domain([new Date(d3.min(years), 0), new Date(d3.max(years), 0)])
+                .range([padding, width - padding]);
+            const yScale = d3.scaleBand()
+                .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
+                .range([height - padding, padding]);
+
             // Draw heatmap
             const parseTime = d3.timeParse('%m');
 
@@ -49,16 +57,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Hide tooltip on mouseout
                 });
 
-            // Add x-axis and label
-            const xScale = d3.scaleTime()
-                .domain([new Date(d3.min(years), 0), new Date(d3.max(years), 0)])
-                .range([padding, width - padding]);
-
+            // Axis
             const xAxis = d3.axisBottom(xScale)
                 .tickFormat(d3.timeFormat('%Y'));
+            const yAxis = d3.axisLeft(yScale)
+                .tickSize(0)
+                .tickPadding(10);
 
             svg.append('g')
-                .attr('transform', `translate(0, ${height - padding})`)
+                .attr('transform', `translate(0, ${height - padding + 5})`)
                 .call(xAxis);
 
             svg.append('text')
@@ -67,15 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('text-anchor', 'middle')
                 .text('Year');
 
-            // Add y-axis and label
-            const yScale = d3.scaleBand()
-                .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
-                .range([padding, height - padding]);
-
-            const yAxis = d3.axisLeft(yScale)
-                .tickSize(0)
-                .tickPadding(10);
-
             svg.append('g')
                 .attr('id', 'y-axis')
                 .attr('transform', `translate(${padding}, 0)`)
@@ -83,10 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             svg.append('text')
                 .attr('x', -height / 2)
-                .attr('y', 10)
+                .attr('y', padding - 40)
                 .attr('transform', 'rotate(-90)')
                 .attr('text-anchor', 'middle')
                 .text('Months');
         });
-
 });
