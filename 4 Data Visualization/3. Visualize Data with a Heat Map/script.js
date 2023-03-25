@@ -35,6 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
                 .range([height - padding, padding]);
 
+            // Create a tooltip element for dots
+            const tooltip = d3.select('body')
+                .append('div')
+                .attr('id', 'tooltip')
+                .style('opacity', 0);
+
             // Draw heatmap
             const parseTime = d3.timeParse('%m');
 
@@ -45,16 +51,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 .data(dataset)
                 .enter()
                 .append('rect')
+                .attr('class', 'heatmap-rect')
                 .attr('x', (d, i) => padding + Math.floor(i / 12) * rectWidth)
                 .attr('y', (d, i) => padding + (i % 12) * rectHeight)
                 .attr('width', rectWidth)
                 .attr('height', rectHeight)
                 .attr('fill', d => colorScale(d.variance))
-                .on('mouseover', (event, d) => {
-                    // Show tooltip on mouseover
+
+                .on("mouseover", function (event, d) {
+                    // Show tooltip
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    // Update tooltip content
+                    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                    tooltip.html(`${d.year} - ${months[d.month - 1]} <br> Temp: ${(8.66 + d.variance).toFixed(3)}&deg;C <br> Var: ${d.variance >= 0 ? '+' : ''}${d.variance}&deg;C`);
                 })
-                .on('mouseout', () => {
-                    // Hide tooltip on mouseout
+                .on("mousemove", function (event, d) {
+                    // Update tooltip position
+                    tooltip.style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 70) + "px")
+                        .style("position", "absolute");
+                })
+                .on("mouseout", function (d) {
+                    // Hide tooltip
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
                 });
 
             // Axis

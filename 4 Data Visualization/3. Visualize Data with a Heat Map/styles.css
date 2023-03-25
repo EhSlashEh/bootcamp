@@ -32,15 +32,15 @@ body {
 #content {
 }
 
+#tooltip {
+    border: 2px solid black;
+    background-color: white;
+    padding: 6px;
+}
+
 #my-name {
     margin: 6px;
     font-size: 1.2em;
     font-weight: 600;
     margin: 20px;
-}
-
-#tooltip {
-    border: 2px solid black;
-    background-color: white;
-    padding: 6px;
 }
