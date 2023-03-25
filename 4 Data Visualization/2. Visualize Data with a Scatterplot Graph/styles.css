@@ -39,21 +39,14 @@ body {
     margin: 20px;
 }
 
-/* Define CSS styles for the plot container */
-#plot-container {
-    width: 800px;
-    height: 500px;
-    margin: 50px auto;
-    position: relative;
-}
-
-/* Define CSS styles for the plot dots */
 .dot {
     fill: steelblue;
     stroke: #fff;
     stroke-width: 1.5px;
 }
 
-.tooltip {
+#tooltip {
     border: 2px solid black;
+    background-color: white;
+    padding: 6px;
 }
