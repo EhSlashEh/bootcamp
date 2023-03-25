@@ -1,0 +1,61 @@
+* {
+    font-family: Arial;
+    cursor: crosshair;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cyan;
+}
+
+#center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 5px solid black;
+    background-color: snow;
+    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 10px 5px;
+    padding: 30px;
+    margin-top: 20px;
+    min-height: 200px;
+}
+
+#title {
+    font-size: 2em;
+    margin: 6px;
+}
+
+#content {
+}
+
+#my-name {
+    margin: 6px;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.dot {
+    stroke: black;
+    stroke-width: 1.5px;
+}
+
+#tooltip {
+    border: 2px solid black;
+    background-color: white;
+    padding: 6px;
+}
+
+#legend {
+    font-size: 0.9em;
+}
+
+#legend rect {
+    stroke: black;
+    width: 20px;
+    height: 20px;
+}
