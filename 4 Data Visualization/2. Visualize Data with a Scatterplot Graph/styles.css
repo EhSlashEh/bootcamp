@@ -1,89 +1,59 @@
 * {
     font-family: Arial;
+    cursor: crosshair;
 }
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    background-color: aquamarine;
+    background-color: cyan;
 }
 
-#drum-machine {
-    border: 6px solid black;
-    border-radius: 40px;
-    background-color: rgba(200,200,200,1);
-    padding: 8px 24px;
-    width: 650px;
-}
-
-#title, #by-me {
-    text-align: center;
-    padding: 12px;
+#center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 5px solid black;
+    background-color: snow;
+    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 10px 5px;
+    padding: 30px;
+    margin-top: 20px;
+    min-height: 200px;
 }
 
 #title {
     font-size: 2em;
+    margin: 6px;
 }
 
-#display {
-    border: 6px groove blue;
-    border-radius: 18px;
-    background-color: antiquewhite;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+#content {
 }
 
-#drum-pad-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 8px;
-}
-
-.drum-pad {
-    border: 1px solid purple;
-    border-radius: 4px;
-    background-color: coral;
-    margin: 10px;
-    height: 100px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+#my-name {
+    margin: 6px;
+    font-size: 1.2em;
     font-weight: 600;
-    box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    margin: 20px;
 }
 
-    .drum-pad:hover {
-        background-color: chocolate;
-        box-shadow: 0 0 4px rgba(0,0,0,0.4);
-    }
-
-#options-container {
-    border: 0px dashed purple;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 500px;
-    margin-right: 28px;
+/* Define CSS styles for the plot container */
+#plot-container {
+    width: 800px;
+    height: 500px;
+    margin: 50px auto;
+    position: relative;
 }
 
-#key-display {
-    border: 1px solid purple;
-    border-radius: 4px;
-    background-color: coral;
-    padding: 20px;
-    width: 150px;
-    text-align: center;
+/* Define CSS styles for the plot dots */
+.dot {
+    fill: steelblue;
+    stroke: #fff;
+    stroke-width: 1.5px;
 }
 
-#volume-slider {
-    display: flex;
-    align-items: center;
+.tooltip {
+    border: 2px solid black;
 }

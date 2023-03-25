@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .attr("data-date", (d) => d[0]) // attach data-date attribute to each bar
             .attr("data-gdp", (d) => d[1]) // attach data-gdp attribute to each bar
 
-
             .on("mouseover", function (event, d) {
                 tooltip.style("display", "block")
                     .attr("data-date", this.getAttribute("data-date")) // get data-date attribute of moused-over bar

@@ -1,82 +1,36 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Title and icon -->
-    <title>Anthony's Drum Machine</title>
+    <title>Anthony's Scatterplot</title>
 
     <!-- CSS Style files -->
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- Script -->
-    <script src="script.js"></script>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/d144bb87de.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
-    <div id="drum-machine">
+    <div id="center-container">
         <div id="title">
-            Drum Machine
+            Doping in Professional Bicycle Racing
         </div>
-        <div id="display">
-            <div id="drum-pad-container">
-                <div class="drum-pad" id="Heater-1" onclick="playSound('Q')">
-                    <audio class="clip" id="Q" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"></audio>
-                    Q
-                </div>
-                <div class="drum-pad" id="Heater-2" onclick="playSound('W')">
-                    <audio class="clip" id="W" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"></audio>
-                    W
-                </div>
-                <div class="drum-pad" id="Heater-3" onclick="playSound('E')">
-                    <audio class="clip" id="E" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"></audio>
-                    E
-                </div>
-                <div class="drum-pad" id="Heater-4" onclick="playSound('A')">
-                    <audio class="clip" id="A" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"></audio>
-                    A
-                </div>
-                <div class="drum-pad" id="Clap" onclick="playSound('S')">
-                    <audio class="clip" id="S" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"></audio>
-                    S
-                </div>
-                <div class="drum-pad" id="Open-HH" onclick="playSound('D')">
-                    <audio class="clip" id="D" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
-                    D
-                </div>
-                <div class="drum-pad" id="Kick-n'-Hat" onclick="playSound('Z')">
-                    <audio class="clip" id="Z" src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"></audio>
-                    Z
-                </div>
-                <div class="drum-pad" id="Kick" onclick="playSound('X')">
-                    <audio class="clip" id="X" src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"></audio>
-                    X
-                </div>
-                <div class="drum-pad" id="Closed-HH" onclick="playSound('C')">
-                    <audio class="clip" id="C" src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"></audio>
-                    C
-                </div>
-            </div>
-            <div id="options-container">
-                <div id="key-display">
-                    Click a button!
-                </div>
-                <div id="volume-container">
-                    <div id="volume-label">
-                        Volume Control
-                    </div>
-                    <div id="volume-slider">
-                        <input id="volume-range" type="range" min="0" max="100" value="100" class="slider">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="by-me">
-            by Anthony Burns
-        </div>
+        <svg id="content">
+        </svg>
+
     </div>
+    <div id='my-name'>
+        Designed & coded by Anthony Burns
+    </div>
+    <!-- JavaScript code -->
+    <script src="script.js"></script>
 </body>
+</html>
