@@ -44,3 +44,8 @@ body {
     font-weight: 600;
     margin: 20px;
 }
+
+.cell:hover {
+    stroke: black;
+    stroke-width: 2px;
+}

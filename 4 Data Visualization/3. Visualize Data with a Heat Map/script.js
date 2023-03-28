@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Axis Scale
             const xScale = d3.scaleTime()
                 .domain([new Date(d3.min(years), 0), new Date(d3.max(years), 0)])
-                .range([padding, width - padding]);
+                .range([padding, width ]);
             const yScale = d3.scaleBand()
                 .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
-                .range([height - padding, padding]);
+                .range([height - padding + 6, padding]);
 
             // Create a tooltip element for dots
             const tooltip = d3.select('body')
@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 .data(dataset)
                 .enter()
                 .append('rect')
-                .attr('class', 'heatmap-rect')
+                .attr('class', 'cell')
+                .attr('data-month', d => d.months)
+                .attr('data-year', d => d.years)
+                .attr('data-temp', d => d.temperatures)
                 .attr('x', (d, i) => padding + Math.floor(i / 12) * rectWidth)
                 .attr('y', (d, i) => padding + (i % 12) * rectHeight)
                 .attr('width', rectWidth)
@@ -90,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             svg.append('g')
                 .attr('transform', `translate(0, ${height - padding + 5})`)
+                .attr('id', 'x-axis')
                 .call(xAxis);
 
             svg.append('text')
