@@ -1,5 +1,5 @@
 * {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -51,5 +51,6 @@ body {
 }
 
 #legend {
-    width: 600px;
+    min-width: 240px;
+    min-height: 50px;
 }

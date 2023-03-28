@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('fill', d => colorScale(d.variance))
 
                 .on("mouseover", function (event, d) {
+                    tooltip.attr('data-year', d.year); // update the data-year attribute
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", .9);
@@ -83,5 +84,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('id', 'x-axis')
                 .attr('transform', `translate(0, ${height - padding + 5})`)
                 .call(xAxis);
+
+            const legendRectWidth = 40;
+            const legendRectHeight = 20;
+            const legendValues = [-7, -4, -1, 2, 5, 8];
+            const legendDiv = document.getElementById('legend');
+            const legendWidth = legendDiv.clientWidth;
+            const legendPadding = 10;
+            const legend = d3.select('#legend')
+                .append('svg')
+                .attr('viewBox', `0 0 ${legendWidth} ${legendRectHeight + legendPadding * 2}`)
+                .append('g');
+
+            legend.selectAll('rect')
+                .data(legendValues)
+                .enter()
+                .append('rect')
+                .attr('x', (d, i) => i * legendRectWidth)
+                .attr('y', 0)
+                .attr('width', legendRectWidth)
+                .attr('height', legendRectHeight)
+                .attr('fill', d => colorScale(d));
+
+            legend.selectAll('text')
+                .data(legendValues)
+                .enter()
+                .append('text')
+                .attr('x', (d, i) => i * legendRectWidth + legendRectWidth / 2)
+                .attr('y', legendRectHeight + 15) // increase the y value to move the text further down
+                .text(d => d + '\u00B0C')
+                .style('text-anchor', 'middle')
+                .style('font-size', '12px'); // reduce the font size of the text;
         });
 });
