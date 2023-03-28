@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: olive;
+    background-color: azure;
 }
 
 #center-container {
@@ -30,6 +30,9 @@ body {
 }
 
 #content {
+    border: 2px solid red;
+    height: 300px;
+    width: 400px;
 }
 
 #tooltip {
@@ -46,11 +49,7 @@ body {
 }
 
 .cell:hover {
-    stroke: black;
-    stroke-width: 2px;
 }
 
 #legend {
-    min-width: 240px;
-    min-height: 50px;
 }

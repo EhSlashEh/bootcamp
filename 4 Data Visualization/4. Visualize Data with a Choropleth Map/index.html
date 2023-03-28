@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Title and icon -->
-    <title>Anthony's Heatmap</title>
+    <title>Anthony's Choropleth</title>
 
     <!-- CSS Style files -->
     <link rel="stylesheet" href="styles.css" />
 
     <!-- D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/d144bb87de.js" crossorigin="anonymous"></script>
@@ -21,12 +22,12 @@
 <body>
     <div id="center-container">
         <div id="title">
-            Monthly Global Land-Surface Temperature
+            United States Educational Attainment
         </div>
         <div id="description">
-            1753 - 2015: base temperature 8.66℃
+            Percentage of adults age 25 and older with a bachelor's degree or higher (2010-2014)
         </div>
-        <svg id="content"></svg>
+        <div id="content"></div>
         <div id="legend"></div>
     </div>
     <div id='my-name'>
