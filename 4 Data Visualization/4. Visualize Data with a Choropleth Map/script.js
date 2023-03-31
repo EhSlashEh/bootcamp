@@ -14,7 +14,7 @@ var x = d3.scaleLinear().domain([2.6, 75.1]).rangeRound([600, 860]);
 var color = d3
     .scaleThreshold()
     .domain(d3.range(2.6, 75.1, (75.1 - 2.6) / 8))
-    .range(d3.schemeGreens[9]);
+    .range(d3.schemePurples[9]);
 
 var g = svg
     .append('g')
@@ -37,7 +37,7 @@ g.selectAll('rect')
     )
     .enter()
     .append('rect')
-    .attr('height', 8)
+    .attr('height', 9)
     .attr('x', function (d) {
         return x(d[0]);
     })
@@ -52,14 +52,12 @@ g.append('text')
     .attr('class', 'caption')
     .attr('x', x.range()[0])
     .attr('y', -6)
-    .attr('fill', '#000')
-    .attr('text-anchor', 'start')
-    .attr('font-weight', 'bold');
+    .attr('fill', '#000');
 
 g.call(
     d3
         .axisBottom(x)
-        .tickSize(13)
+        .tickSize(12)
         .tickFormat(function (x) {
             return Math.round(x) + '%';
         })
@@ -107,8 +105,6 @@ function ready(us, education) {
             if (result[0]) {
                 return color(result[0].bachelorsOrHigher);
             }
-            // could not find a matching fips id in the data
-            return color(0);
         })
         .attr('d', path)
         .on('mouseover', function (event, d) {
@@ -128,8 +124,6 @@ function ready(us, education) {
                             '%'
                         );
                     }
-                    // could not find a matching fips id in the data
-                    return 0;
                 })
                 .attr('data-education', function () {
                     var result = education.filter(function (obj) {
@@ -138,8 +132,6 @@ function ready(us, education) {
                     if (result[0]) {
                         return result[0].bachelorsOrHigher;
                     }
-                    // could not find a matching fips id in the data
-                    return 0;
                 })
                 .style('left', event.pageX + 10 + 'px')
                 .style('top', event.pageY - 28 + 'px');
