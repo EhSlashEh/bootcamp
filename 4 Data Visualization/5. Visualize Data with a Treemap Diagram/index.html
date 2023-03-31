@@ -10,24 +10,30 @@
     <!-- CSS Style files -->
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- Script -->
-    <script src="script.js"></script>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/d144bb87de.js" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
     <div id="center-container">
         <div id="title">
-            Treemap Diagram
+            <h1>Video Game Sales (2015)</h1>
         </div>
         <div id="description">
-            A description...
+            <h2>Treemap Diagram</h2>
         </div>
-
-        <div id="by-me">
-            Designed and Coded by Anthony Burns
-        </div>
+        <svg id="tree-map" width="960" height="570"></svg>
+        <svg id="legend" width="500"></svg>
     </div>
+    <div id="by-me">
+        Designed and Coded by Anthony Burns
+    </div>
+
 </body>
+
+<!-- JavaScript code -->
+<script src="script.js"></script>
