@@ -1,5 +1,4 @@
-﻿
-const DATASETS = {
+﻿const DATASETS = {
     videogames: {
         TITLE: 'Video Game Sales',
         DESCRIPTION: 'Top 100 Most Sold Video Games Grouped by Platform',
