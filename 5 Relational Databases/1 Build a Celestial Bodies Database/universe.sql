@@ -50,8 +50,9 @@ SET default_table_access_method = heap;
 CREATE TABLE public.galaxy (
     id integer NOT NULL,
     name text NOT NULL,
-    distance double precision NOT NULL,
-    type text
+    diameter_in_parsecs integer NOT NULL,
+    type text,
+    number_of_planets integer
 );
 
 
@@ -86,7 +87,7 @@ ALTER SEQUENCE public.galaxy_id_seq OWNED BY public.galaxy.id;
 CREATE TABLE public.moon (
     id integer NOT NULL,
     name text NOT NULL,
-    distance double precision NOT NULL,
+    diameter numeric NOT NULL,
     type text
 );
 
@@ -123,7 +124,8 @@ CREATE TABLE public.planet (
     id integer NOT NULL,
     name text NOT NULL,
     distance double precision NOT NULL,
-    type text
+    type text,
+    has_atmosphere boolean
 );
 
 
@@ -159,7 +161,9 @@ CREATE TABLE public.star (
     id integer NOT NULL,
     name text NOT NULL,
     distance double precision NOT NULL,
-    type text
+    type text,
+    is_binary boolean,
+    galaxy_id integer
 );
 
 
@@ -219,24 +223,32 @@ ALTER TABLE ONLY public.star ALTER COLUMN id SET DEFAULT nextval('public.star_id
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+COPY public.galaxy (id, name, diameter_in_parsecs, type, number_of_planets) FROM stdin;
+\.
 
 
 --
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+COPY public.moon (id, name, diameter, type) FROM stdin;
+\.
 
 
 --
 -- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+COPY public.planet (id, name, distance, type, has_atmosphere) FROM stdin;
+\.
 
 
 --
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+COPY public.star (id, name, distance, type, is_binary, galaxy_id) FROM stdin;
+\.
 
 
 --
@@ -300,5 +312,14 @@ ALTER TABLE ONLY public.star
 
 
 --
+-- Name: star fk_star_galaxy; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT fk_star_galaxy FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
+
